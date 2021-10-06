@@ -1,0 +1,8 @@
+vul_data
+.DS_Store
+
+
+tmp/
+!tmp/.gitkeep
+
+/.byebug_history
