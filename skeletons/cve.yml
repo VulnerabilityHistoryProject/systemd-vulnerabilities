@@ -144,7 +144,7 @@ discovered:
   automated:
   contest:
   developer:
-discoverable:
+autodiscoverable:
   instructions: |
     Is it plausible that a fully automated tool could have discovered
     this? These are tools that require little knowledge of the domain,
@@ -190,9 +190,18 @@ subsystem:
 
     Look at the path of the source code files code that were fixed to get
     directory names. Look at comments in the code. Look at the bug reports how
-    the bug report was tagged.
+    the bug report was tagged. 
 
-    Name should be all lowercase, NOT a specific file.
+    Example systemd subsystems are:
+      * fsck
+      * apparmor
+      * fstab
+      * sd-daemon
+
+    Name should be:
+      * all lowercase English letters
+      * NOT a specific file
+      * can have digits, and _-@/
 
     Can be multiple subsystems involved, in which case you can make it an array
     e.g.
