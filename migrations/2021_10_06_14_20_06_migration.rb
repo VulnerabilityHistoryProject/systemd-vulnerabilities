@@ -93,7 +93,7 @@ initial_cves_to_cwes.each do |cve, cwe|
 
   # Generate the new YML, clean it up, write it out.
   File.open("cves/#{cve}.yml", "w+") do |file|
-    yml_txt = out_h.to_yaml(line_width: 80)[4..-1] # strip off ---\n
+    yml_txt = out_h.to_yaml(BestWidth: 80, UseFold: true)[4..-1] # strip off ---\n
     stripped_yml = ""
     yml_txt.each_line do |line|
       stripped_yml += "#{line.rstrip}\n" # strip trailing whitespace
