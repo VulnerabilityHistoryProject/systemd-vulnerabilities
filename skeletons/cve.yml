@@ -1,5 +1,5 @@
 CVE:
-yaml_instructions: 
+yaml_instructions: |
   =================
   ===YAML Primer===
   =================
@@ -11,7 +11,7 @@ yaml_instructions:
 
   For readability, we hard-wrap multi-line strings at 80 characters. This is
   not absolutely required, but appreciated.
-curated_instructions: 
+curated_instructions: |
   If you are manually editing this file, then you are "curating" it. 
   
   Set the version number that you were given in the instructions. 
@@ -20,14 +20,14 @@ curated_instructions:
   fill everything out properly. If you are a student, we cannot accept your work
   as finished unless curated is set to true.
 curation_level: 0
-reported_instructions: 
+reported_instructions: |
   What date was the vulnerability reported to the security team? Look at the
   security bulletins and bug reports. It is not necessarily the same day that
   the CVE was created.  Leave blank if no date is given.
 
   Please enter your date in YYYY-MM-DD format.
 reported_date:
-announced_instructions: 
+announced_instructions: |
   Was there a date that this vulnerability was announced to the world? You can
   find this in changelogs, blogs, bug reports, or perhaps the CVE date.
 
@@ -35,11 +35,11 @@ announced_instructions:
 
   Please enter your date in YYYY-MM-DD format.
 announced_date:
-published_instructions: 
+published_instructions: |
   Is there a published fix or patch date for this vulnerability?
   Please enter your date in YYYY-MM-DD format.
 published_date:
-description_instructions: 
+description_instructions: |
   You can get an initial description from the CVE entry on cve.mitre.org. These
   descriptions are a fine start, but they can be kind of jargony.
 
@@ -55,10 +55,8 @@ description_instructions:
 
   Your target audience is people just like you before you took any course in
   security
-
-  
 description:
-bounty_instructions: 
+bounty_instructions: |
   If you came across any indications that a bounty was paid out for this
   vulnerability, fill it out here. Or correct it if the information already here
   was wrong. Otherwise, leave it blank.
@@ -67,13 +65,13 @@ bounty:
   announced:
   url:
 reviews: []
-bugs_instructions: 
+bugs_instructions: |
   What bugs and/or pull requests are involved in this vulnerability? 
 
   For systemd, this is typically their GitHub issues, but could also include 
   bugs from other databases. Put a URL instead of a single number.
 bugs: []
-fixes_instructions: 
+fixes_instructions: |
   Please put the commit hash in "commit" below.
 
   This must be a git commit hash from the systemd source repo, a  40-character 
@@ -85,7 +83,7 @@ fixes:
   note:
 - commit:
   note:
-vcc_instructions: 
+vcc_instructions: |
   The vulnerability-contributing commits.
   
   These are found by our tools by traversing the Git Blame history, where we 
@@ -102,7 +100,7 @@ vccs:
   note:
 - commit:
   note:
-upvotes_instructions: 
+upvotes_instructions: |
   For the first round, ignore this upvotes number.
 
   For the second round of reviewing, you will be giving a certain amount of
@@ -111,7 +109,7 @@ upvotes_instructions:
   upvotes score on your branch.
 upvotes:
 unit_tested:
-  question: 
+  question: |
     Were automated unit tests involved in this vulnerability?
     Was the original code unit tested, or not unit tested? Did the fix involve
     improving the automated tests?
@@ -129,7 +127,7 @@ unit_tested:
   fix:
   fix_answer:
 discovered:
-  question: 
+  question: |
     How was this vulnerability discovered?
 
     Go to the bug report and read the conversation to find out how this was
@@ -147,7 +145,7 @@ discovered:
   contest:
   developer:
 discoverable:
-  instructions: 
+  instructions: |
     Is it plausible that a fully automated tool could have discovered
     this? These are tools that require little knowledge of the domain,
      e.g. automatic static analysis, compiler warnings, fuzzers.
@@ -165,7 +163,7 @@ discoverable:
   note:
   answer:
 specification:
-  instructions: 
+  instructions: |
     Is there mention of a violation of a specification? For example, the POSIX
     spec, an RFC spec, a network protocol spec, or some other requirements
     specification.
@@ -183,7 +181,7 @@ specification:
   note:
   answer:
 subsystem:
-  question: 
+  question: |
     What subsystems was the mistake in? These are subsystems WITHIN systemd
 
     Two areas to look:
@@ -204,7 +202,7 @@ subsystem:
   name:
   note:
 interesting_commits:
-  question: 
+  question: |
     Are there any interesting commits between your VCC(s) and fix(es)?
 
     Use this to specify any commits you think are notable in some way, and
@@ -215,7 +213,7 @@ interesting_commits:
   - commit:
     note:
 i18n:
-  question: 
+  question: |
     Was the feature impacted by this vulnerability about internationalization
     (i18n)?
 
@@ -229,7 +227,7 @@ i18n:
   answer:
   note:
 sandbox:
-  question: 
+  question: |
     Did this vulnerability violate a sandboxing feature that the system
     provides? A sandboxing feature is one that
 
@@ -239,7 +237,7 @@ sandbox:
   answer:
   note:
 ipc:
-  question: 
+  question: |
     Did the feature that this vulnerability affected use inter-process
     communication? IPC includes OS signals, pipes, stdin/stdout, message
     passing, and clipboard. Writing to files that another program in this
@@ -251,7 +249,7 @@ ipc:
   answer:
   note:
 disagreement:
-  question: 
+  question: |
     Was there any disagreement expressed in the conversations surrounding this?
 
     Perhaps it was disputed by someone at some point about whether this is an
@@ -272,7 +270,7 @@ disagreement:
   any_disagreement:
   note:
 vouch:
-  question: 
+  question: |
     Was there any part of the fix that involved one person vouching for 
     another's work?
 
@@ -286,7 +284,7 @@ vouch:
   answer: 
   note: 
 stacktrace:
-  question: 
+  question: |
     Are there any stacktraces in the bug reports? 
 
     Secondly, if there is a stacktrace, is the fix in the same file that the 
@@ -302,7 +300,7 @@ stacktrace:
   stacktrace_with_fix: 
   note: 
 forgotten_check:
-  question: 
+  question: |
     Does the fix for the vulnerability involve adding a forgotten check?
 
     A "forgotten check" can mean many things. It often manifests as the fix 
@@ -322,7 +320,7 @@ forgotten_check:
   answer: 
   note:
 lessons:
-  question: 
+  question: |
     Are there any common lessons we have learned from class that apply to this
     vulnerability? In other words, could this vulnerability serve as an example
     of one of those lessons?
@@ -370,7 +368,7 @@ lessons:
     applies:
     note:
 mistakes:
-  question: 
+  question: |
     In your opinion, after all of this research, what mistakes were made that
     led to this vulnerability? Coding mistakes? Design mistakes?
     Maintainability? Requirements? Miscommunications?
@@ -392,7 +390,7 @@ mistakes:
     Write a thoughtful entry here that people in the software engineering
     industry would find interesting.
   answer:
-CWE_instructions: 
+CWE_instructions: |
   Please go to http://cwe.mitre.org and find the most specific, appropriate CWE
   entry that describes your vulnerability. We recommend going to
   https://cwe.mitre.org/data/definitions/699.html for the Software Development
@@ -409,7 +407,7 @@ CWE_instructions:
     CWE: 123            # also ok
 CWE:
 CWE_note:
-nickname_instructions: 
+nickname_instructions: |
   A catchy name for this vulnerability that would draw attention it.
   If the report mentions a nickname, use that.
   Must be under 30 characters. Optional.
