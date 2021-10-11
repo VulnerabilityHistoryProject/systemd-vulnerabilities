@@ -28,7 +28,7 @@ describe 'CVE yml file' do
         end
       end
 
-      context 'when curated at level 1, it must' do
+      context 'when curated at level 1, it' do
 
         it 'has the CWE filled out' do
           if at_curation_level?(vuln, 1)
@@ -46,9 +46,7 @@ describe 'CVE yml file' do
         it 'has answers for unit_tested questions' do
           if at_curation_level?(vuln, 1)
             expect(vuln['unit_tested']['code']).to be(true).or(be(false))
-            expect(vuln['unit_tested']['code_note'].to_s).not_to be_empty
             expect(vuln['unit_tested']['fix']).to be(true).or(be(false))
-            expect(vuln['unit_tested']['fix_note'].to_s).not_to be_empty
           end
         end
 
@@ -58,21 +56,21 @@ describe 'CVE yml file' do
             expect(vuln['discovered']['automated']).to be(true).or(be(false))
             expect(vuln['discovered']['contest']).to be(true).or(be(false))
             expect(vuln['discovered']['developer']).to be(true).or(be(false))
-            expect(vuln['autodiscoverable']['answer_note'].to_s).not_to be_empty
+            expect(vuln['autodiscoverable']['note'].to_s).not_to be_empty
             expect(vuln['autodiscoverable']['answer']).to be(true).or(be(false))
           end
         end
 
         it 'has answers for specification' do
           if at_curation_level?(vuln, 1)
-            expect(vuln['specification']['answer_note'].to_s).not_to be_empty
+            expect(vuln['specification']['note'].to_s).not_to be_empty
             expect(vuln['specification']['answer']).to be(true).or(be(false))
           end
         end
 
         it 'has properly formatted subsystem names' do
           if at_curation_level?(vuln, 1)
-            expect(vuln['subsystem']['answer'].to_s).not_to be_empty
+            expect(vuln['subsystem']['name'].to_s).not_to be_empty
             subsystem_str = Array[vuln['subsystem']['name']].join
             expect(subsystem_str).to match(/^[a-z\s0-9\_\-\@\/]+$/)
           end
@@ -116,7 +114,7 @@ describe 'CVE yml file' do
 
         it 'has answers for stacktrace' do
           if at_curation_level?(vuln, 1)
-            expect(vuln['stacktrace']['any_stacktrace']).to be(true).or(be(false))
+            expect(vuln['stacktrace']['any_stacktraces']).to be(true).or(be(false))
             expect(vuln['stacktrace']['stacktrace_with_fix']).to be(true).or(be(false))
             expect(vuln['stacktrace']['note'].to_s).not_to be_empty
           end
