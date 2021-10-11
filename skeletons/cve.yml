@@ -12,12 +12,14 @@ yaml_instructions: |
   For readability, we hard-wrap multi-line strings at 80 characters. This is
   not absolutely required, but appreciated.
 curated_instructions: |
-  If you are manually editing this file, then you are "curating" it. Set the
-  entry below to "true" as soon as you start. This will enable additional
-  integrity checks on this file to make sure you fill everything out properly.
-  If you are a student, we cannot accept your work as finished unless curated is
-  set to true.
-curated: false
+  If you are manually editing this file, then you are "curating" it. 
+  
+  Set the version number that you were given in the instructions. 
+   
+  This will enable additional editorial checks on this file to make sure you 
+  fill everything out properly. If you are a student, we cannot accept your work
+  as finished unless curated is set to true.
+curation_level: 0
 reported_instructions: |
   What date was the vulnerability reported to the security team? Look at the
   security bulletins and bug reports. It is not necessarily the same day that
@@ -278,8 +280,7 @@ vouch:
       * upvoting a solution on a pull request
 
     Answer must be true or false.
-    Write a note about how you came to the conclusions you did, regardless of
-    what your answer was.
+    Write a note about how you came to the conclusions you did, regardless of what your answer was.
   answer: 
   note: 
 stacktrace:

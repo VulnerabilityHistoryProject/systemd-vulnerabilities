@@ -1,7 +1,7 @@
 require 'yaml'
 
 # MIGRATION STATUS: Not done yet.
-raise 'Migration already performed.' # Don't run this migration. Kept for posterity
+# raise 'Migration already performed.' # Don't run this migration. Kept for posterity
 
 def initial_cves_to_cwes
 # Copied from: https://www.cvedetails.com/vulnerability-list/vendor_id-7971/product_id-38088/Freedesktop-Systemd.html
@@ -93,7 +93,7 @@ initial_cves_to_cwes.each do |cve, cwe|
 
   # Generate the new YML, clean it up, write it out.
   File.open("cves/#{cve}.yml", "w+") do |file|
-    yml_txt = out_h.to_yaml[4..-1] # strip off ---\n
+    yml_txt = out_h.to_yaml(line_width: 80)[4..-1] # strip off ---\n
     stripped_yml = ""
     yml_txt.each_line do |line|
       stripped_yml += "#{line.rstrip}\n" # strip trailing whitespace
