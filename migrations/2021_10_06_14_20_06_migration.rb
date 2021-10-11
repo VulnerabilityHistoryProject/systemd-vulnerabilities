@@ -1,7 +1,7 @@
 require 'yaml'
 
 # MIGRATION STATUS: Not done yet.
-# raise 'Migration already performed.' # Don't run this migration. Kept for posterity
+raise 'Migration already performed.' # Don't run this migration. Kept for posterity
 
 def initial_cves_to_cwes
 # Copied from: https://www.cvedetails.com/vulnerability-list/vendor_id-7971/product_id-38088/Freedesktop-Systemd.html
@@ -80,19 +80,16 @@ def cves_to_pub_dates
 end
 
 initial_cves_to_cwes.each do |cve, cwe|
-  h = YAML.load(File.open('skeletons/cve.yml', 'r').read)
+  skel = YAML.load(File.open('skeletons/cve.yml', 'r').read)
+  h = YAML.load(File.open("cves/#{cve}.yml", 'r').read)
 
   # Add in CWE
-  h['CVE'] = cve
-  h['CWE'] = Array(cwe) unless cwe.empty?
-  h['published_date'] = cves_to_pub_dates[cve]
+  skel['CVE'] = cve
+  skel['CWE'] = Array(cwe) unless cwe.empty?
+  skel['published_date'] = cves_to_pub_dates[cve]
+  skel['fixes'] = h['fixes']
 
-  out_h = h
-  # Reconstruct the hash in the order we specify
-  # out_h = {}
-  # order_of_keys.each do |key|
-  #   out_h[key] = h[key]
-  # end
+  out_h = skel
 
   # Generate the new YML, clean it up, write it out.
   File.open("cves/#{cve}.yml", "w+") do |file|
