@@ -1,11 +1,6 @@
 require 'byebug'
 require 'require_all'
 require 'rspec/core/rake_task'
-require_relative 'scripts/curate_ready'
-require_relative 'scripts/helpers'
-
-# removed because of travis mechanize issues
-#require_rel 'scripts'
 
 desc 'Run the specs by default'
 task default: :spec
