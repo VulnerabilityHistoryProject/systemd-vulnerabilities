@@ -55,26 +55,51 @@ def order_of_keys
   )
 end
 
+class CustomEncode
+  def initialize(**opts)
+    @opts = opts
+  end
+
+  def encode_with(coder)
+    @opts.each { |k,v| coder.public_send :"#{k}=", v }
+  end
+end
+
+class VHPHash < Hash
+  def encode_with(coder)
+    coder.style = Psych::Nodes::Scalar::LITERAL
+    coder.tag = nil
+    coder.map = self     
+  end
+end
+
+def dump_nice_yaml(h)
+  # On the console, to test this out
+  h = YAML.load(File.open('skeletons/cve.yml', 'r').read)
+  print Psych.dump(h)
+end
+
 ymls = Dir['cves/*.yml']
-skel = YAML.load(File.open(yml_file, 'r').read)
+skel = YAML.load(File.open('skeletons/cve.yml', 'r').read)
 ymls.each do |yml_file|
   h = YAML.load(File.open(yml_file, 'r').read)
 
   # Do stuff to your hash here.
   h['curated_instructions'] = skel['curated_instructions']
   h['discussion']           = skel['discussion']
+  h['autodiscoverable']     = skel['autodiscoverable']
   h['order_of_operations']  = skel['order_of_operations']
   h['mistakes']             = skel['mistakes']
 
   # Reconstruct the hash in the order we specify
-  out_h = {}
+  out_h = VHPHash.new
   order_of_keys.each do |key|
     out_h[key] = h[key]
   end
 
-  # Generate the new YML, clean it up, write it out.
-  File.open(yml_file, "w+") do |file|
-    yml_txt = out_h.to_yaml[4..-1] # strip off ---\n
+  yml_txt = out_h.to_yaml[4..-1] # strip off ---\n
+  yml_txt = Psych.dump(CustomEncode.new map: out_h, style: Psych::Nodes::Scalar::LITERAL, tag: nil)
+  File.open(yml_file, "w") do |file|
     stripped_yml = ""
     yml_txt.each_line do |line|
       stripped_yml += "#{line.rstrip}\n" # strip trailing whitespace
