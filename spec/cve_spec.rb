@@ -99,9 +99,9 @@ describe 'CVE yml file' do
         
         it 'has answers for disagreement' do
           if at_curation_level?(vuln, 1)
-            expect(vuln['disagreement']['disputed_as_security']).to be(true).or(be(false))
-            expect(vuln['disagreement']['any_disagreement']).to be(true).or(be(false))
-            expect(vuln['disagreement']['note'].to_s).not_to be_empty
+            expect(vuln['discussion']['discussed_as_security']).to be(true).or(be(false))
+            expect(vuln['discussion']['any_discussion']).to be(true).or(be(false))
+            expect(vuln['discussion']['note'].to_s).not_to be_empty
           end
         end
 
