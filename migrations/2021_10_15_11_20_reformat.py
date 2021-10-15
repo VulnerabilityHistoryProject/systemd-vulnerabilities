@@ -18,7 +18,7 @@ with open(r'skeletons/cve.yml', 'r') as skel_file:
     skel = yaml.load(skel_file)
 
 skel_keys = list(skel.keys())
-keys_to_keep = "fixes vccs".split()
+keys_to_keep = "fixes vccs CVE".split()
 
 for entry in os.scandir(r'cves/'):
     with open(entry.path, 'r') as f: 
