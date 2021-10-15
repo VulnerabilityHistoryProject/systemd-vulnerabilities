@@ -15,7 +15,6 @@ ruamel.yaml.add_representer(OrderedDict, MyRepresenter.represent_dict,
 
 YAML.Representer = MyRepresenter
 
-
 with open('skeletons/cve.yml') as f: 
     # print(f.read())
     h = yaml.load(f)
