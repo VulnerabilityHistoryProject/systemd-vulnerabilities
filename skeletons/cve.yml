@@ -12,12 +12,14 @@ yaml_instructions: |
   For readability, we hard-wrap multi-line strings at 80 characters. This is
   not absolutely required, but appreciated.
 curated_instructions: |
-  If you are manually editing this file, then you are "curating" it. Set the
-  entry below to "true" as soon as you start. This will enable additional
-  integrity checks on this file to make sure you fill everything out properly.
-  If you are a student, we cannot accept your work as finished unless curated is
-  set to true.
-curated: false
+  If you are manually editing this file, then you are "curating" it. 
+  
+  Set the version number that you were given in the instructions. 
+   
+  This will enable additional editorial checks on this file to make sure you 
+  fill everything out properly. If you are a student, we cannot accept your work
+  as finished unless curated is properly updated. 
+curation_level: 0
 reported_instructions: |
   What date was the vulnerability reported to the security team? Look at the
   security bulletins and bug reports. It is not necessarily the same day that
@@ -69,15 +71,30 @@ bugs_instructions: |
   For systemd, this is typically their GitHub issues, but could also include 
   bugs from other databases. Put a URL instead of a single number.
 bugs: []
-fixes_vcc_instructions: |
+fixes_instructions: |
   Please put the commit hash in "commit" below.
 
-  Fixes and VCCs follow the same format. 
+  This must be a git commit hash from the systemd source repo, a  40-character 
+  hexademical string/
+
+  Place any notes you would like to make in the notes field.
 fixes:
 - commit:
   note:
 - commit:
   note:
+vcc_instructions: |
+  The vulnerability-contributing commits.
+  
+  These are found by our tools by traversing the Git Blame history, where we 
+  determine which commit(s) introduced the functionality. 
+  
+  Look up these VCC commits and verify that they are not simple refactorings, 
+  and that they are, in fact introducing the vulnerability into the system. 
+  Often, introducing the file or function is where the VCC is, but VCCs can be 
+  anything. 
+
+  Place any notes you would like to make in the notes field.
 vccs:
 - commit:
   note:
@@ -127,7 +144,7 @@ discovered:
   automated:
   contest:
   developer:
-discoverable:
+autodiscoverable:
   instructions: |
     Is it plausible that a fully automated tool could have discovered
     this? These are tools that require little knowledge of the domain,
@@ -173,9 +190,18 @@ subsystem:
 
     Look at the path of the source code files code that were fixed to get
     directory names. Look at comments in the code. Look at the bug reports how
-    the bug report was tagged.
+    the bug report was tagged. 
 
-    Name should be all lowercase, NOT a specific file.
+    Example systemd subsystems are:
+      * fsck
+      * apparmor
+      * fstab
+      * sd-daemon
+
+    Name should be:
+      * all lowercase English letters
+      * NOT a specific file
+      * can have digits, and _-@/
 
     Can be multiple subsystems involved, in which case you can make it an array
     e.g.
@@ -212,12 +238,17 @@ i18n:
 sandbox:
   question: |
     Did this vulnerability violate a sandboxing feature that the system
-    provides? A sandboxing feature is one that
+    provides? 
+    
+    A sandboxing feature is one that allows files, users, or other features 
+    limited access. Vulnerabilities that violate sandboxes are usually based on 
+    access control, checking privileges incorrectly, path traversal, and the 
+    like.
 
     Answer should be true or false
     Write a note about how you came to the conclusions you did, regardless of
     what your answer was.
-  answer:
+  answer: 
   note:
 ipc:
   question: |
@@ -229,28 +260,36 @@ ipc:
     Answer must be true or false.
     Write a note about how you came to the conclusions you did, regardless of
     what your answer was.
-  answer:
-  note:
-disagreement:
+  answer: 
+  note: 
+discussion:
   question: |
-    Was there any disagreement expressed in the conversations surrounding this?
+    Was there any discussion surrounding this?
 
-    Perhaps it was disputed by someone at some point about whether this is an
-    actual vulnerability or not? (If so, the answer to both is "true")
+    A discussion can include debates, disputes, or polite talk about how to 
+    resolve uncertainty.
 
-    Or, was there disagreement about something else?
+    Example include:
+      * Is this out of our scope?
+      * Is this a security?
+      * How should we fix this?
+
+    Just because you see multiple comments doesn't mean it's a discussion. 
+    For example:
+      * "Fix line 10". "Ok" is not what we call a discussion
+      * "Ping" (reminding people)
 
     Check the bugs reports, pull requests, and mailing lists archives.
 
     These answers should be boolean.
-      disputed_as_security: true or false
-      any_disagreement: true or false
+      discussed_as_security: true or false
+      any_discussion: true or false
 
     Put any links to disagreements you found in the notes section, or any other
     comment you want to make.
 
-  disputed_as_security:
-  any_disagreement:
+  discussed_as_security:
+  any_discussion:
   note:
 vouch:
   question: |
@@ -263,8 +302,7 @@ vouch:
       * upvoting a solution on a pull request
 
     Answer must be true or false.
-    Write a note about how you came to the conclusions you did, regardless of
-    what your answer was.
+    Write a note about how you came to the conclusions you did, regardless of what your answer was.
   answer: 
   note: 
 stacktrace:
@@ -298,6 +336,19 @@ forgotten_check:
       * consult file permissions
       * check a return value
     
+    Answer must be true or false.
+    Write a note about how you came to the conclusions you did, regardless of
+    what your answer was.
+  answer: 
+  note:
+order_of_operations:
+  question: |
+    Does the fix for the vulnerability involve correcting an order of 
+    operations?
+
+    This means the fix involves moving code around or changing the order of 
+    how things are done. 
+
     Answer must be true or false.
     Write a note about how you came to the conclusions you did, regardless of
     what your answer was.
@@ -359,14 +410,21 @@ mistakes:
 
     There can, and usually are, many mistakes behind a vulnerability.
 
-    Remember that mistake can come in many forms:
+    Remember that mistakes can come in many forms:
     * slip: failing to complete a properly planned step due to inattention
               e.g. wrong key in the ignition
+              e.g. using < instead of <=
     * lapse: failing to complete a properly planned step due to memory failure
               e.g. forgetting to put car in reverse before backing up
-    * mistake: error that occurs when the plan is inadequate
+              e.g. forgetting to check null
+    * planning error: error that occurs when the plan is inadequate
               e.g. getting stuck in traffic because you didn’t consider the 
                    impact of the bridge closing
+              e.g. calling the wrong method
+              e.g. using a poor design
+
+    These are grey areas, of course. But do your best to analyze the mistakes 
+    according to this framework.
 
     Look at the CWE entry for this vulnerability and examine the mitigations
     they have written there. Are they doing those? Does the fix look proper?
