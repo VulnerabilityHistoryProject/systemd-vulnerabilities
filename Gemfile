@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rake'
 gem 'rspec'
 gem 'git'
+gem 'byebug'
 
 # You'll need this installed for get_releases.rb
 # But it causes problems on installation so
