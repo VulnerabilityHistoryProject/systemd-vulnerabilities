@@ -80,23 +80,20 @@ def cves_to_pub_dates
 end
 
 initial_cves_to_cwes.each do |cve, cwe|
-  h = YAML.load(File.open('skeletons/cve.yml', 'r').read)
+  skel = YAML.load(File.open('skeletons/cve.yml', 'r').read)
+  h = YAML.load(File.open("cves/#{cve}.yml", 'r').read)
 
   # Add in CWE
-  h['CVE'] = cve
-  h['CWE'] = Array(cwe) unless cwe.empty?
-  h['published_date'] = cves_to_pub_dates[cve]
+  skel['CVE'] = cve
+  skel['CWE'] = Array(cwe) unless cwe.empty?
+  skel['published_date'] = cves_to_pub_dates[cve]
+  skel['fixes'] = h['fixes']
 
-  out_h = h
-  # Reconstruct the hash in the order we specify
-  # out_h = {}
-  # order_of_keys.each do |key|
-  #   out_h[key] = h[key]
-  # end
+  out_h = skel
 
   # Generate the new YML, clean it up, write it out.
   File.open("cves/#{cve}.yml", "w+") do |file|
-    yml_txt = out_h.to_yaml[4..-1] # strip off ---\n
+    yml_txt = out_h.to_yaml(BestWidth: 80, UseFold: true)[4..-1] # strip off ---\n
     stripped_yml = ""
     yml_txt.each_line do |line|
       stripped_yml += "#{line.rstrip}\n" # strip trailing whitespace
