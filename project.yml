@@ -1,6 +1,6 @@
 name: systemd
 fullname: systemd
-subdomain: tomcat
+subdomain: systemd
 bg_color: '#30D475'
 project_url: https://www.freedesktop.org/wiki/Software/systemd/
 description: |
